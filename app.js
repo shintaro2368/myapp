@@ -3,6 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const cors = require('cors');
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -10,6 +12,7 @@ var helloRouter = require('./routes/hello');
 var notesRouter = require('./routes/notes');
 var catRouter = require('./routes/cat');
 var dogRouter = require('./routes/dog');
+var notesFromBRouter = require('./routes/notes_from_d');
 
 var app = express();
 
@@ -22,6 +25,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors());// corsミドルウェア
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -29,6 +33,7 @@ app.use('/hello', helloRouter);
 app.use('/notes', notesRouter);
 app.use('/cat', catRouter);
 app.use('/dog', dogRouter);
+app.use('/notes_from_b', notesFromBRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
